@@ -1,7 +1,9 @@
 # 1. we needed pip to get this for us because python doesn't ship with it
 import pygame
+from Hero import Hero
 # 2. initiate pygame
 pygame.init()
+hero = Hero()
 # 3. make a screen with a size
 screen_size = (512,480)
 pygame_screen = pygame.display.set_mode(screen_size)
@@ -12,10 +14,6 @@ background_image = pygame.image.load('background.png')
 hero_image = pygame.image.load('hero.png')
 goblin_image = pygame.image.load('goblin.png')
 arrow_image = pygame.image.load('arrow.png')
-herLoc = {
-    'x' : 0,
-    'y' : 0
-}
 
 # ===========MAIN GAME LOOP===========
 game_on = True
@@ -27,9 +25,18 @@ while game_on:
             # the user chose to exit
             game_on = False
         elif event.type == pygame.KEYDOWN:
-            print (event.key)
-            if event.key == 275:
-                herLoc['x'] += 10
+            if event.key == 273 and hero.y>0:
+                # hero.y -= 8
+                hero.should_move('up')
+            elif event.key == 274 and hero.y<=464:
+                # hero.y += 8
+                hero.should_move('down')
+            if event.key == 275 and hero.x<=488:
+                hero.x += 8 
+                hero.should_move('left')
+            elif event.key == 276 and hero.x>=8:
+                hero.x -= 8
+                hero.should_move('right')
     # ===========DRAW STUFF===========
     # we use blit to draw on the screen, blit  = block image transfer
     # it takes two arguments - 
@@ -37,5 +44,5 @@ while game_on:
         # 2. where to draw it
     # in the docs, SURFACE = our 'pygame.screem'
     pygame_screen.blit(background_image,[0,0])
-    pygame_screen.blit(hero_image,[herLoc['x'],herLoc['y']])
-    pygame.display.flip()
+    pygame_screen.blit(hero_image,[hero.x,hero.y])
+    pygame.display.flip() #this is to flip to the next "slide".. it deleted the former one and replaces it
