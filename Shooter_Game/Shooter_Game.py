@@ -2,6 +2,7 @@
 import pygame
 from Hero import Hero
 from Bad_guy import Bad_guy
+# from Weapon import Weapon
 # 2. initiate pygame
 pygame.init()
 hero = Hero()
@@ -22,7 +23,8 @@ game_on = True
 while game_on:
     #  we are in the game loop from here on out
     # 5. Listen for the user to click the red x
-    for event in pygame.event.get():   
+    for event in pygame.event.get(): 
+        # print (event.type)  
         if event.type == pygame.QUIT:
             # the user chose to exit
             game_on = False
