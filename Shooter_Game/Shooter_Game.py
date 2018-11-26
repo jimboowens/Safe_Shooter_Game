@@ -2,11 +2,13 @@
 import pygame
 from Hero import Hero
 from Bad_guy import Bad_guy
+from Weapon import Arrow
 # from Weapon import Weapon
 # 2. initiate pygame
 pygame.init()
 hero = Hero()
 bad_guy = Bad_guy()
+arrow = Arrow(hero, bad_guy)
 # 3. make a screen with a size
 screen_size = (512,480)
 pygame_screen = pygame.display.set_mode(screen_size)
@@ -23,8 +25,8 @@ game_on = True
 while game_on:
     #  we are in the game loop from here on out
     # 5. Listen for the user to click the red x
-    for event in pygame.event.get(): 
-        # print (event.type)  
+    for event in pygame.event.get():
+        # print (event.key)  
         if event.type == pygame.QUIT:
             # the user chose to exit
             game_on = False
@@ -41,6 +43,8 @@ while game_on:
             elif event.key == 276:
                 # hero.x -= 8
                 hero.should_move('right')
+            elif event.key == 32:
+                arrow.fire(arrow, bad_guy)
         elif event.type == pygame.KEYUP:
             if event.key == 273:
                 # hero.y -= 8
@@ -65,4 +69,6 @@ while game_on:
     pygame_screen.blit(hero_image,[hero.x,hero.y])
     bad_guy.update_me(hero)
     pygame_screen.blit(monster_image, [bad_guy.x,bad_guy.y])
+    pygame_screen.blit(arrow_image,[arrow.x,arrow.y])
     pygame.display.flip() #this is to flip to the next "slide".. it deleted the former one and replaces it
+    print (bad_guy.health)

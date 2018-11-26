@@ -9,7 +9,7 @@ class Hero(object):
         self.should_move_down = False
         self.should_move_left = False
         self.should_move_right = False
-        self.has_weapon = False
+        self.has_weapon = True
     def should_move (self, direction, start = True):
         if direction == "up":
             self.should_move_up = start
